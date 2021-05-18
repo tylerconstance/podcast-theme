@@ -1,0 +1,35 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+<div class="homepage__container">
+    <header class="site-home-header">
+        <div class="inner">
+            <div class="site-header-content">
+                <h1 class="site-title">
+                    {{@site.title}}
+                </h1>
+                <h2 class="site-description">{{@site.description}}</h2>
+            </div>
+        </div>
+    </header>
+
+    {{#get "authors"}}
+        <div class="show-list__container">
+            <div class="show-card__list">
+                {{#foreach authors}}
+                    <a href="{{slug}}" class="show-card__container">
+                        {{#if profile_image}}
+                            <img class="show-card__art" src="{{profile_image}}" alt="{{name}}" />
+                        {{else}}
+                            <span class="show-card__art">{{> "icons/avatar"}}</span>
+                        {{/if}}
+                        <div class="show-card__text">
+                            <h2 class="show-card__title">{{name}}</h2>
+                            <p class="show-card__description">{{bio}}</p>
+                        </div>
+                    </a>
+                {{/foreach}}
+            </div>
+        </div>
+    {{/get}}
+</div>

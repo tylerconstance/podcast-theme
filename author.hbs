@@ -1,0 +1,74 @@
+{{!< default}}
+{{!-- The tag above means - insert everything in this file into the {body} of the default.hbs template --}}
+
+{{#author}}
+{{!-- Everything inside the #author tags pulls data from the author --}}
+
+
+<header class="site-archive-header">
+    {{> site-header}}
+    {{> header-background background=cover_image}} {{!--Special header-image.hbs partial to generate the background image--}}
+        <div class="inner">
+            <div class="site-header-content author-header">
+                {{#if profile_image}}
+                    <img class="author-profile-image" src="{{profile_image}}" alt="{{name}}" />
+                {{else}}
+                    <span class="author-profile-image">{{> "icons/avatar"}}</span>
+                {{/if}}
+                <div class="author-header-content">
+                    <h1 class="site-title">{{name}}</h1>
+                        {{#has slug="fun"}}
+                            <h2 class="author-bio">Hosted by <a href="https://twitter.com/tylerconstance" target="_blank" rel="noopener">Tyler Constance</a> and <a href="https://twitter.com/amandahuesmann" target="_blank" rel="noopener">Amanda Huesmann</a></h2>
+                        {{/has}}
+                    {{#if bio}}
+                        <h2 class="author-bio">{{bio}}</h2>
+                    {{/if}}
+                    <div class="author-meta">
+                        {{#if location}}
+                            <div class="author-location">{{location}}</div>
+                        {{/if}}
+                        <div class="author-stats">
+                            {{plural ../pagination.total empty='No episodes' singular='% episode' plural='% episodes'}}
+                        </div>
+                        {{#if website}}
+                            <span class="author-social-link"><a href="{{website}}" target="_blank" rel="noopener">Website</a></span>
+                        {{/if}}
+                        {{#if twitter}}
+                            <span class="author-social-link"><a href="{{twitter_url}}" target="_blank" rel="noopener">Twitter</a></span>
+                        {{/if}}
+                        {{#if facebook}}
+                            <span class="author-social-link"><a href="{{facebook_url}}" target="_blank" rel="noopener">Facebook</a></span>
+                        {{/if}}
+                    </div>
+                    {{#has slug="fun"}}
+                        <div class="podcastIconContainer">
+                            <a href="https://podcasts.apple.com/us/podcast/one-fun-thing/id1540814471"><img class="podcast-icon" src="{{asset 'icons/apple-podcasts-logo.png'}}" /></a>
+                            <a href="https://overcast.fm/itunes1540814471"><img class="podcast-icon" src="{{asset 'icons/overcast-icon.png'}}" /></a>
+                            <a href="https://pca.st/e6v6446s"><img class="podcast-icon" src="{{asset 'icons/pocket-casts-icon.png'}}" /></a>
+                            <a href="https://castro.fm/itunes/1540814471"><img class="podcast-icon" src="{{asset '/icons/castro-icon.png'}}" /></a>
+                            <a href="https://open.spotify.com/show/4zg0NH46XE0XcEx19tIm6p"><img class="podcast-icon" src="{{asset 'icons/spotify-icon.png'}}" /></a>
+                            <a href="/fun/rss"><img class="podcast-icon" src="{{asset '/icons/rss-icon.png'}}" /></a>
+                        </div>
+                    {{/has}}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{{/author}}
+
+{{!-- The main content area --}}
+<main id="site-main" class="site-main outer">
+    <div class="inner posts">
+
+        <div class="post-feed">
+            {{#foreach posts}}
+
+                {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
+                {{> "post-card"}}
+
+            {{/foreach}}
+        </div>
+
+    </div>
+</main>

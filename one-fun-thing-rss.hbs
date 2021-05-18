@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+    xmlns:rawvoice="http://www.rawvoice.com/rawvoiceRssModule/" xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0">
+
+<channel>
+<language>{{@site.locale}}</language>
+<copyright>{{@site.title}} Copyright {{date format="YYYY"}}</copyright>
+<atom:link href="{{@site.url}}/podcast/rss/" rel="self" type="application/rss+xml" />
+<lastBuildDate>{{date format="ddd, DD MMM YYYY HH:mm:ss ZZ"}}</lastBuildDate>
+{{#get "authors" filter="slug:fun" as |author|}}
+    {{#foreach author}}
+        <title>{{name}}</title>
+        <link>{{url absolute="true"}}</link>
+        <description>{{bio}}</description>
+        <itunes:image href="{{img_url profile_image absolute="true"}}"
+        />
+        <itunes:subtitle>{{bio}}</itunes:subtitle>
+        <itunes:summary>Hosted by Tyler Constance and Amanda Huesmann</itunes:summary>
+    {{/foreach}}
+{{/get}}
+<itunes:author>{{@site.title}}</itunes:author>
+<itunes:explicit>clean</itunes:explicit>
+<itunes:keywords></itunes:keywords>
+<itunes:type>episodic</itunes:type>
+<itunes:owner>
+    <itunes:name>Understated Audio</itunes:name>
+    <itunes:email>hello@understatedaudio.com</itunes:email>
+</itunes:owner>
+<itunes:category text="Society &amp; Culture"></itunes:category>
+
+{{#get "posts" filter="primary_author:fun" limit="all" include="tags,authors" as |episode|}}
+    {{#foreach episode}}
+    <item>
+        <title>{{title}}</title>
+        <link>{{url absolute="true"}}</link>
+        <pubDate>{{date format="ddd, DD MMM YYYY HH:mm:ss ZZ"}}</pubDate>
+        <guid isPermaLink="false">{{id}}</guid>
+        <category><![CDATA[ {{primary_tag}} ]]></category>
+        <description>{{custom_excerpt}}</description>
+        <content:encoded><![CDATA[ {{content}} ]]></content:encoded>
+        <enclosure url="{{og_description}}" length="0" type="audio/mpeg"/>
+        <itunes:author>{{primary_author.name}}</itunes:author>
+        <itunes:duration>{{og_title}}</itunes:duration>
+        <itunes:subtitle>{{custom_excerpt}}</itunes:subtitle>
+        <itunes:summary><![CDATA[ {{content}} ]]></itunes:summary>
+        <itunes:keywords></itunes:keywords>
+        <itunes:explicit>clean</itunes:explicit>
+        <itunes:episodeType>full</itunes:episodeType>
+        <itunes:episode>{{slug}}</itunes:episode>
+    </item>
+    {{/foreach}}
+{{/get}}
+
+</channel>
+</rss>

@@ -1,0 +1,35 @@
+{
+  "data": {
+    "posts": [],
+    "tags": [],
+    "posts_tags": [],
+    "users": [
+      {
+        "id": 1,
+        "slug": "fun",
+        "bio": "I am a person on the website",
+        "website": "https://www.example.com",
+        "created_at": "Thu, 3 Aug 2019 13:45:57 +0530",
+        "created_by": 1,
+        "email": "onefunthing@example.com",
+        "name": "One Fun Thing",
+        "profile_image": ""
+      },
+      {
+        "id": 2,
+        "slug": "related",
+        "bio": "I am a person on the website",
+        "website": "https://www.example.com",
+        "created_at": "Thu, 3 Aug 2019 13:45:57 +0530",
+        "created_by": 1,
+        "email": "somewhatrelated@example.com",
+        "name": "Somewhat Related",
+        "profile_image": ""
+      }
+    ]
+  },
+  "meta": {
+    "exported_on": "Thu, 3 Aug 2019 13:46:48 +0530",
+    "version": "2.14.0"
+  }
+}

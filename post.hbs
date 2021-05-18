@@ -1,0 +1,143 @@
+{{!< default}}
+
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+<header class="site-header">
+    {{> site-header}}
+</header>
+
+{{!-- Everything inside the #post tags pulls data from the post --}}
+{{#post}}
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full {{post_class}} {{#unless feature_image}}no-image{{/unless}}">
+
+            <header class="post-full-header">
+
+                {{#primary_author}}
+                    <section class="post-full-tags">
+                        <a href="{{url}}">{{name}}</a>
+                    </section>
+                {{/primary_author}}
+
+                <h1 class="post-full-title">{{title}}</h1>
+
+                {{#if custom_excerpt}}
+                <p class="post-full-custom-excerpt">{{custom_excerpt}}</p>
+                {{/if}}
+
+                <div class="post-full-byline">
+
+                    <section class="post-full-byline-content">
+
+                        <ul class="author-list">
+                            {{#foreach authors}}
+                            <li class="author-list-item">
+
+                                <div class="author-card">
+                                    {{#if profile_image}}
+                                    <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
+                                    {{else}}
+                                    <div class="author-profile-image">{{> "icons/avatar"}}</div>
+                                    {{/if}}
+                                    <div class="author-info">
+                                        {{#if bio}}
+                                        <div class="bio">
+                                            <h2>{{name}}</h2>
+                                            <p>{{bio}}</p>
+                                            <p><a href="{{url}}">More posts</a> by {{name}}.</p>
+                                        </div>
+                                        {{else}}
+                                        <h2>{{name}}</h2>
+                                        <p>Read <a href="{{url}}">more posts</a> by this author.</p>
+                                        {{/if}}
+                                    </div>
+                                </div>
+
+                                {{#if profile_image}}
+                                <a href="{{url}}" class="author-avatar">
+                                    <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
+                                </a>
+                                {{else}}
+                                <a href="{{url}}" class="author-avatar author-profile-image">{{> "icons/avatar"}}</a>
+                                {{/if}}
+
+                            </li>
+                            {{/foreach}}
+                        </ul>
+
+                        <section class="post-full-byline-meta">
+                            <h4 class="author-name">{{authors}}</h4>
+                            <div class="byline-meta-content">
+                                <time class="byline-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+                            </div>
+                        </section>
+
+                    </section>
+
+
+                </div>
+            </header>
+
+            {{#if feature_image}}
+            <figure class="post-full-image">
+                {{!-- This is a responsive image, it loads different sizes depending on device
+                https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
+                <img
+                    srcset="{{img_url feature_image size="s"}} 300w,
+                            {{img_url feature_image size="m"}} 600w,
+                            {{img_url feature_image size="l"}} 1000w,
+                            {{img_url feature_image size="xl"}} 2000w"
+                    sizes="(max-width: 800px) 400px,
+                        (max-width: 1170px) 1170px,
+                            2000px"
+                    src="{{img_url feature_image size="xl"}}"
+                    alt="{{title}}"
+                />
+            </figure>
+            {{/if}}
+
+            <section class="post-full-content">
+                <div class="post-content">
+                {{#if og_description}}
+                    <audio
+                        class="audioPlayer"
+                        controls
+                        src="{{og_description}}">
+                            Your browser does not support the
+                            <code>audio</code> element.
+                    </audio>
+                {{/if}}
+                    {{content}}
+                </div>
+            </section>
+
+        </article>
+
+    </div>
+</main>
+
+{{/post}}
+
+{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
+{{#contentFor "scripts"}}
+<script>
+    $(document).ready(function () {
+        // FitVids - start
+        var $postContent = $(".post-full-content");
+        $postContent.fitVids();
+        // FitVids - end
+
+        // Replace nav with title on scroll - start
+        Casper.stickyNavTitle({
+            navSelector: '.site-nav-main',
+            titleSelector: '.post-full-title',
+            activeClass: 'nav-post-title-active'
+        });
+        // Replace nav with title on scroll - end
+    });
+</script>
+{{/contentFor}}
